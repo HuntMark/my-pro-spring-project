@@ -5,6 +5,8 @@ import com.apress.prospring4.ch3.MessageRenderer;
 
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+
 @Service("messageRenderer")
 public class StandardOutMessageRenderer implements MessageRenderer {
   private MessageProvider messageProvider;
@@ -19,7 +21,27 @@ public class StandardOutMessageRenderer implements MessageRenderer {
     System.out.println(messageProvider.getMessage());
   }
 
+  /*
+  Setter Injection via @Autowired (Spring)
   @Override
+  @Autowired
+  public void setMessageProvider(MessageProvider messageProvider) {
+    this.messageProvider = messageProvider;
+  }
+  */
+
+  /*
+  Setter Injection via @Resource (JSR-250)
+  @Override
+  @Resource(name = "messageProvider")
+  public void setMessageProvider(MessageProvider messageProvider) {
+    this.messageProvider = messageProvider;
+  }
+  */
+
+  // Setter Injection via @Inject (JSR-299)
+  @Override
+  @Inject
   public void setMessageProvider(MessageProvider messageProvider) {
     this.messageProvider = messageProvider;
   }

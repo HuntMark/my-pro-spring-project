@@ -9,7 +9,7 @@ public class DeclareSpringComponents {
     context.load("classpath:app-context-annotation.xml");
     context.refresh();
 
-    MessageProvider messageProvider = context.getBean("messageProvider", MessageProvider.class);
-    System.out.println(messageProvider.getMessage());
+    MessageRenderer messageRenderer = context.getBean("messageRenderer", MessageRenderer.class);
+    messageRenderer.render();
   }
 }
