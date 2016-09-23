@@ -35,8 +35,14 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
         c:message="Configurable Message via c namespace"/>
   -->
 
+  <!--
+  Constructor Confusion example
   <bean id="constructorConfusion" class="com.apress.prospring4.ch3.xml.ConstructorConfusion">
     <constructor-arg type="int" value="90"/>
   </bean>
+  -->
 
+  <bean id="injectSimple" class="com.apress.prospring4.ch3.xml.InjectSimple"
+        p:name="Chris Schaefer" p:age="32" p:ageInSeconds="100000000" p:height="1.7"
+        p:programmer="true"/>
 </beans>
