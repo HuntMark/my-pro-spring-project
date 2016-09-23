@@ -4,7 +4,7 @@ import com.apress.prospring4.ch3.MessageProvider;
 
 import org.springframework.stereotype.Service;
 
-@Service("messageProvider")
+@Service("helloWorldMessageProvider")
 public class HelloWorldMessageProvider implements MessageProvider {
   @Override
   public String getMessage() {

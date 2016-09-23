@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -8,5 +9,8 @@ http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd">
   <context:component-scan base-package="com.apress.prospring4.ch3.annotation">
     <context:exclude-filter type="assignable" expression="com.apress.prospring4.ch3.xml.HelloWorldMessageProvider"/>
+    <context:exclude-filter type="assignable" expression="com.apress.prospring4.ch3.xml.ConfigurableMessageProvider"/>
   </context:component-scan>
+
+  <bean id="message" class="java.lang.String" c:_0="Configurable message from xml (annotation)"/>
 </beans>
