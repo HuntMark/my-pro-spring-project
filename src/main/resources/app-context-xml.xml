@@ -43,12 +43,14 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   -->
 
   <!--
-  Inject simple values
+  Injecting simple values
   <bean id="injectSimple" class="com.apress.prospring4.ch3.xml.InjectSimple"
         p:name="Chris Schaefer" p:age="32" p:ageInSeconds="100000000" p:height="1.7"
         p:programmer="true"/>
   -->
 
+  <!--
+  Injecting values by using SpEL
   <bean id="injectSimpleConfig" class="com.apress.prospring4.ch3.xml.InjectSimpleConfig"/>
 
   <bean id="injectSimpleSpel" class="com.apress.prospring4.ch3.xml.InjectSimpleSpel"
@@ -57,4 +59,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
         p:programmer="#{injectSimpleConfig.programmer}"
         p:ageInSeconds="#{injectSimpleConfig.ageInSeconds}"
         p:height="#{injectSimpleConfig.height}"/>
+  -->
+
+  <bean id="oracle" name="wiseworm" class="com.apress.prospring4.ch3.BookwormOracle"/>
+
+  <bean id="injectRef" class="com.apress.prospring4.ch3.xml.InjectRef">
+    <property name="oracle" ref="wiseworm"/>
+  </bean>
 </beans>
