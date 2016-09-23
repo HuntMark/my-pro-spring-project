@@ -42,7 +42,19 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   </bean>
   -->
 
+  <!--
+  Inject simple values
   <bean id="injectSimple" class="com.apress.prospring4.ch3.xml.InjectSimple"
         p:name="Chris Schaefer" p:age="32" p:ageInSeconds="100000000" p:height="1.7"
         p:programmer="true"/>
+  -->
+
+  <bean id="injectSimpleConfig" class="com.apress.prospring4.ch3.xml.InjectSimpleConfig"/>
+
+  <bean id="injectSimpleSpel" class="com.apress.prospring4.ch3.xml.InjectSimpleSpel"
+        p:name="#{injectSimpleConfig.name + ' (Spel from XML)'}"
+        p:age="#{injectSimpleConfig.age + 1}"
+        p:programmer="#{injectSimpleConfig.programmer}"
+        p:ageInSeconds="#{injectSimpleConfig.ageInSeconds}"
+        p:height="#{injectSimpleConfig.height}"/>
 </beans>
