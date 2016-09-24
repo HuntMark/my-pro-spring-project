@@ -61,9 +61,24 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
         p:height="#{injectSimpleConfig.height}"/>
   -->
 
+  <!--
+  Injecting Bean in the Same XML Unit
   <bean id="oracle" name="wiseworm" class="com.apress.prospring4.ch3.BookwormOracle"/>
 
   <bean id="injectRef" class="com.apress.prospring4.ch3.xml.InjectRef">
     <property name="oracle" ref="wiseworm"/>
   </bean>
+  -->
+
+  <bean id="target1" class="com.apress.prospring4.ch3.SimpleTarget" p:val-ref="injectBeanParent"/>
+
+  <bean id="target2" class="com.apress.prospring4.ch3.SimpleTarget" p:val-ref="injectBean"/>
+
+  <bean id="target3" class="com.apress.prospring4.ch3.SimpleTarget">
+    <property name="val">
+      <ref parent="injectBean"/>
+    </property>
+  </bean>
+
+  <bean id="injectBean" class="java.lang.String" c:_0="Bean In Child"/>
 </beans>
