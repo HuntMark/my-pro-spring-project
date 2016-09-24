@@ -70,6 +70,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   </bean>
   -->
 
+  <!--
+  Injection and ApplicationContext Nesting
   <bean id="target1" class="com.apress.prospring4.ch3.SimpleTarget" p:val-ref="injectBeanParent"/>
 
   <bean id="target2" class="com.apress.prospring4.ch3.SimpleTarget" p:val-ref="injectBean"/>
@@ -81,4 +83,37 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   </bean>
 
   <bean id="injectBean" class="java.lang.String" c:_0="Bean In Child"/>
+  -->
+
+  <bean id="oracle" name="wiseworm" class="com.apress.prospring4.ch3.BookwormOracle"/>
+
+  <bean id="injectCollection" class="com.apress.prospring4.ch3.xml.CollectionInjection">
+    <property name="map">
+      <map>
+        <entry key="someValue" value="Hello World!"/>
+        <entry key="someBean" value-ref="oracle"/>
+      </map>
+    </property>
+
+    <property name="props">
+      <props>
+        <prop key="firstName">Chris</prop>
+        <prop key="secondName">Schaefer</prop>
+      </props>
+    </property>
+
+    <property name="set">
+      <set>
+        <value>Hello World!</value>
+        <ref bean="oracle"/>
+      </set>
+    </property>
+
+    <property name="list">
+      <list>
+        <value>Hello World!</value>
+        <ref bean="oracle"/>
+      </list>
+    </property>
+  </bean>
 </beans>
