@@ -85,6 +85,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   <bean id="injectBean" class="java.lang.String" c:_0="Bean In Child"/>
   -->
 
+  <!--
+  Using Collections for Injection
   <bean id="oracle" name="wiseworm" class="com.apress.prospring4.ch3.BookwormOracle"/>
 
   <bean id="injectCollection" class="com.apress.prospring4.ch3.xml.CollectionInjection">
@@ -115,5 +117,16 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
         <ref bean="oracle"/>
       </list>
     </property>
+  </bean>
+  -->
+
+  <bean id="helper" class="com.apress.prospring4.ch3.MyHelper" scope="prototype"/>
+
+  <bean id="abstractLookupBean" class="com.apress.prospring4.ch3.AbstractLookupDemoBean">
+    <lookup-method bean="helper" name="getMyHelper"/>
+  </bean>
+
+  <bean id="standardLookupBean" class="com.apress.prospring4.ch3.StandardLookupDemoBean">
+    <property name="myHelper" ref="helper"/>
   </bean>
 </beans>
