@@ -120,6 +120,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   </bean>
   -->
 
+  <!--
+  Lookup Method Injection
   <bean id="helper" class="com.apress.prospring4.ch3.MyHelper" scope="prototype"/>
 
   <bean id="abstractLookupBean" class="com.apress.prospring4.ch3.AbstractLookupDemoBean">
@@ -129,4 +131,15 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   <bean id="standardLookupBean" class="com.apress.prospring4.ch3.StandardLookupDemoBean">
     <property name="myHelper" ref="helper"/>
   </bean>
+  -->
+
+  <bean id="methodReplacer" class="com.apress.prospring4.ch3.FormatMessageReplacer"/>
+
+  <bean id="replacementTarget" class="com.apress.prospring4.ch3.ReplacementTarget">
+    <replaced-method name="formatMessage" replacer="methodReplacer">
+      <arg-type>String</arg-type>
+    </replaced-method>
+  </bean>
+
+  <bean id="standardTarget" class="com.apress.prospring4.ch3.ReplacementTarget"/>
 </beans>
