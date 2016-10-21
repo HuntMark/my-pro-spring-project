@@ -157,6 +157,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   <bean id="nonSingleton" class="java.lang.String" scope="prototype" c:_0="Chris Schaefer"/>
   -->
 
+  <!--
+  Autowiring Your Bean
   <bean id="foo" class="com.apress.prospring4.ch3.xml.Foo"/>
   <bean id="bar1" class="com.apress.prospring4.ch3.xml.Bar"/>
 
@@ -165,4 +167,9 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   <bean id="targetByType" autowire="byType" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
 
   <bean id="targetConstructor" autowire="constructor" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
+  -->
+
+  <bean id="inheritParent" class="com.apress.prospring4.ch3.xml.SimpleBean" p:name="Chris Schaefer" p:age="32"/>
+
+  <bean id="inheritChild" class="com.apress.prospring4.ch3.xml.SimpleBean" parent="inheritParent" p:age="33"/>
 </beans>
