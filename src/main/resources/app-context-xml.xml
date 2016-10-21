@@ -152,5 +152,17 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   <alias name="name1" alias="name6"/>
   -->
 
+  <!--
+  Implementing Bean Scopes
   <bean id="nonSingleton" class="java.lang.String" scope="prototype" c:_0="Chris Schaefer"/>
+  -->
+
+  <bean id="foo" class="com.apress.prospring4.ch3.xml.Foo"/>
+  <bean id="bar1" class="com.apress.prospring4.ch3.xml.Bar"/>
+
+  <bean id="targetByName" autowire="byName" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
+
+  <bean id="targetByType" autowire="byType" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
+
+  <bean id="targetConstructor" autowire="constructor" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
 </beans>
