@@ -5,179 +5,186 @@
        xmlns:c="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd"
-default-lazy-init="true">
+       default-lazy-init="true">
 
-  <!--
-  Setter Injection via property tag
-  <bean id="messageRenderer" class="com.apress.prospring4.ch3.StandardOutMessageRenderer">
-    <property name="messageProvider" ref="messageProvider"/>
-  </bean>
-  -->
+    <!--
+    Setter Injection via property tag
+    <bean id="messageRenderer" class="com.apress.prospring4.ch3.StandardOutMessageRenderer">
+      <property name="messageProvider" ref="messageProvider"/>
+    </bean>
+    -->
 
-  <!--
-  Setter Injection via "p" namespace
-  <bean id="messageRenderer" class="com.apress.prospring4.ch3.StandardOutMessageRenderer"
-        p:messageProvider-ref="messageProvider"/>
+    <!--
+    Setter Injection via "p" namespace
+    <bean id="messageRenderer" class="com.apress.prospring4.ch3.StandardOutMessageRenderer"
+          p:messageProvider-ref="messageProvider"/>
 
-  <bean id="messageProvider" class="com.apress.prospring4.ch3.xml.HelloWorldMessageProvider"/>
-  -->
+    <bean id="messageProvider" class="com.apress.prospring4.ch3.xml.HelloWorldMessageProvider"/>
+    -->
 
-  <!--
-  Constructor Injection via constructor-arg tag
-  <bean id="messageProvider" class="com.apress.prospring4.ch3.xml.ConfigurableMessageProvider">
-    <constructor-arg value="Configurable message!"/>
-  </bean>
-  -->
+    <!--
+    Constructor Injection via constructor-arg tag
+    <bean id="messageProvider" class="com.apress.prospring4.ch3.xml.ConfigurableMessageProvider">
+      <constructor-arg value="Configurable message!"/>
+    </bean>
+    -->
 
-  <!-- Constructor Injection via "c" namespace -->
-  <!--
-  <bean id="messageProvider"
-        class="com.apress.prospring4.ch3.xml.ConfigurableMessageProvider"
-        c:message="Configurable Message via c namespace"/>
-  -->
+    <!-- Constructor Injection via "c" namespace -->
+    <!--
+    <bean id="messageProvider"
+          class="com.apress.prospring4.ch3.xml.ConfigurableMessageProvider"
+          c:message="Configurable Message via c namespace"/>
+    -->
 
-  <!--
-  Constructor Confusion example
-  <bean id="constructorConfusion" class="com.apress.prospring4.ch3.xml.ConstructorConfusion">
-    <constructor-arg type="int" value="90"/>
-  </bean>
-  -->
+    <!--
+    Constructor Confusion example
+    <bean id="constructorConfusion" class="com.apress.prospring4.ch3.xml.ConstructorConfusion">
+      <constructor-arg type="int" value="90"/>
+    </bean>
+    -->
 
-  <!--
-  Injecting simple values
-  <bean id="injectSimple" class="com.apress.prospring4.ch3.xml.InjectSimple"
-        p:name="Chris Schaefer" p:age="32" p:ageInSeconds="100000000" p:height="1.7"
-        p:programmer="true"/>
-  -->
+    <!--
+    Injecting simple values
+    <bean id="injectSimple" class="com.apress.prospring4.ch3.xml.InjectSimple"
+          p:name="Chris Schaefer" p:age="32" p:ageInSeconds="100000000" p:height="1.7"
+          p:programmer="true"/>
+    -->
 
-  <!--
-  Injecting values by using SpEL
-  <bean id="injectSimpleConfig" class="com.apress.prospring4.ch3.xml.InjectSimpleConfig"/>
+    <!--
+    Injecting values by using SpEL
+    <bean id="injectSimpleConfig" class="com.apress.prospring4.ch3.xml.InjectSimpleConfig"/>
 
-  <bean id="injectSimpleSpel" class="com.apress.prospring4.ch3.xml.InjectSimpleSpel"
-        p:name="#{injectSimpleConfig.name + ' (Spel from XML)'}"
-        p:age="#{injectSimpleConfig.age + 1}"
-        p:programmer="#{injectSimpleConfig.programmer}"
-        p:ageInSeconds="#{injectSimpleConfig.ageInSeconds}"
-        p:height="#{injectSimpleConfig.height}"/>
-  -->
+    <bean id="injectSimpleSpel" class="com.apress.prospring4.ch3.xml.InjectSimpleSpel"
+          p:name="#{injectSimpleConfig.name + ' (Spel from XML)'}"
+          p:age="#{injectSimpleConfig.age + 1}"
+          p:programmer="#{injectSimpleConfig.programmer}"
+          p:ageInSeconds="#{injectSimpleConfig.ageInSeconds}"
+          p:height="#{injectSimpleConfig.height}"/>
+    -->
 
-  <!--
-  Injecting Bean in the Same XML Unit
-  <bean id="oracle" name="wiseworm" class="com.apress.prospring4.ch3.BookwormOracle"/>
+    <!--
+    Injecting Bean in the Same XML Unit
+    <bean id="oracle" name="wiseworm" class="com.apress.prospring4.ch3.BookwormOracle"/>
 
-  <bean id="injectRef" class="com.apress.prospring4.ch3.xml.InjectRef">
-    <property name="oracle" ref="wiseworm"/>
-  </bean>
-  -->
+    <bean id="injectRef" class="com.apress.prospring4.ch3.xml.InjectRef">
+      <property name="oracle" ref="wiseworm"/>
+    </bean>
+    -->
 
-  <!--
-  Injection and ApplicationContext Nesting
-  <bean id="target1" class="com.apress.prospring4.ch3.SimpleTarget" p:val-ref="injectBeanParent"/>
+    <!--
+    Injection and ApplicationContext Nesting
+    <bean id="target1" class="com.apress.prospring4.ch3.SimpleTarget" p:val-ref="injectBeanParent"/>
 
-  <bean id="target2" class="com.apress.prospring4.ch3.SimpleTarget" p:val-ref="injectBean"/>
+    <bean id="target2" class="com.apress.prospring4.ch3.SimpleTarget" p:val-ref="injectBean"/>
 
-  <bean id="target3" class="com.apress.prospring4.ch3.SimpleTarget">
-    <property name="val">
-      <ref parent="injectBean"/>
-    </property>
-  </bean>
+    <bean id="target3" class="com.apress.prospring4.ch3.SimpleTarget">
+      <property name="val">
+        <ref parent="injectBean"/>
+      </property>
+    </bean>
 
-  <bean id="injectBean" class="java.lang.String" c:_0="Bean In Child"/>
-  -->
+    <bean id="injectBean" class="java.lang.String" c:_0="Bean In Child"/>
+    -->
 
-  <!--
-  Using Collections for Injection
-  <bean id="oracle" name="wiseworm" class="com.apress.prospring4.ch3.BookwormOracle"/>
+    <!--
+    Using Collections for Injection
+    <bean id="oracle" name="wiseworm" class="com.apress.prospring4.ch3.BookwormOracle"/>
 
-  <bean id="injectCollection" class="com.apress.prospring4.ch3.xml.CollectionInjection">
-    <property name="map">
-      <map>
-        <entry key="someValue" value="Hello World!"/>
-        <entry key="someBean" value-ref="oracle"/>
-      </map>
-    </property>
+    <bean id="injectCollection" class="com.apress.prospring4.ch3.xml.CollectionInjection">
+      <property name="map">
+        <map>
+          <entry key="someValue" value="Hello World!"/>
+          <entry key="someBean" value-ref="oracle"/>
+        </map>
+      </property>
 
-    <property name="props">
-      <props>
-        <prop key="firstName">Chris</prop>
-        <prop key="secondName">Schaefer</prop>
-      </props>
-    </property>
+      <property name="props">
+        <props>
+          <prop key="firstName">Chris</prop>
+          <prop key="secondName">Schaefer</prop>
+        </props>
+      </property>
 
-    <property name="set">
-      <set>
-        <value>Hello World!</value>
-        <ref bean="oracle"/>
-      </set>
-    </property>
+      <property name="set">
+        <set>
+          <value>Hello World!</value>
+          <ref bean="oracle"/>
+        </set>
+      </property>
 
-    <property name="list">
-      <list>
-        <value>Hello World!</value>
-        <ref bean="oracle"/>
-      </list>
-    </property>
-  </bean>
-  -->
+      <property name="list">
+        <list>
+          <value>Hello World!</value>
+          <ref bean="oracle"/>
+        </list>
+      </property>
+    </bean>
+    -->
 
-  <!--
-  Lookup Method Injection
-  <bean id="helper" class="com.apress.prospring4.ch3.MyHelper" scope="prototype"/>
+    <!--
+    Lookup Method Injection
+    <bean id="helper" class="com.apress.prospring4.ch3.MyHelper" scope="prototype"/>
 
-  <bean id="abstractLookupBean" class="com.apress.prospring4.ch3.AbstractLookupDemoBean">
-    <lookup-method bean="helper" name="getMyHelper"/>
-  </bean>
+    <bean id="abstractLookupBean" class="com.apress.prospring4.ch3.AbstractLookupDemoBean">
+      <lookup-method bean="helper" name="getMyHelper"/>
+    </bean>
 
-  <bean id="standardLookupBean" class="com.apress.prospring4.ch3.StandardLookupDemoBean">
-    <property name="myHelper" ref="helper"/>
-  </bean>
-  -->
+    <bean id="standardLookupBean" class="com.apress.prospring4.ch3.StandardLookupDemoBean">
+      <property name="myHelper" ref="helper"/>
+    </bean>
+    -->
 
-  <!--
-  Method Replacement
-  <bean id="methodReplacer" class="com.apress.prospring4.ch3.FormatMessageReplacer"/>
+    <!--
+    Method Replacement
+    <bean id="methodReplacer" class="com.apress.prospring4.ch3.FormatMessageReplacer"/>
 
-  <bean id="replacementTarget" class="com.apress.prospring4.ch3.ReplacementTarget">
-    <replaced-method name="formatMessage" replacer="methodReplacer">
-      <arg-type>String</arg-type>
-    </replaced-method>
-  </bean>
+    <bean id="replacementTarget" class="com.apress.prospring4.ch3.ReplacementTarget">
+      <replaced-method name="formatMessage" replacer="methodReplacer">
+        <arg-type>String</arg-type>
+      </replaced-method>
+    </bean>
 
-  <bean id="standardTarget" class="com.apress.prospring4.ch3.ReplacementTarget"/>
-  -->
+    <bean id="standardTarget" class="com.apress.prospring4.ch3.ReplacementTarget"/>
+    -->
 
-  <!--
-  Understanding Bean Naming
-  <bean id="name1" name="name2 name3,name4;name5" class="java.lang.String" c:_0="Hello!"/>
-  <alias name="name1" alias="name6"/>
-  -->
+    <!--
+    Understanding Bean Naming
+    <bean id="name1" name="name2 name3,name4;name5" class="java.lang.String" c:_0="Hello!"/>
+    <alias name="name1" alias="name6"/>
+    -->
 
-  <!--
-  Implementing Bean Scopes
-  <bean id="nonSingleton" class="java.lang.String" scope="prototype" c:_0="Chris Schaefer"/>
-  -->
+    <!--
+    Implementing Bean Scopes
+    <bean id="nonSingleton" class="java.lang.String" scope="prototype" c:_0="Chris Schaefer"/>
+    -->
 
-  <!--
-  Autowiring Your Bean
-  <bean id="foo" class="com.apress.prospring4.ch3.xml.Foo"/>
-  <bean id="bar1" class="com.apress.prospring4.ch3.xml.Bar"/>
+    <!--
+    Autowiring Your Bean
+    <bean id="foo" class="com.apress.prospring4.ch3.xml.Foo"/>
+    <bean id="bar1" class="com.apress.prospring4.ch3.xml.Bar"/>
 
-  <bean id="targetByName" autowire="byName" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
+    <bean id="targetByName" autowire="byName" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
 
-  <bean id="targetByType" autowire="byType" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
+    <bean id="targetByType" autowire="byType" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
 
-  <bean id="targetConstructor" autowire="constructor" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
-  -->
+    <bean id="targetConstructor" autowire="constructor" class="com.apress.prospring4.ch3.xml.Target" lazy-init="true"/>
+    -->
 
-  <!--
-  Setting Bean Inheritance
-  <bean id="inheritParent" class="com.apress.prospring4.ch3.xml.SimpleBean" p:name="Chris Schaefer" p:age="32"/>
+    <!--
+    Setting Bean Inheritance
+    <bean id="inheritParent" class="com.apress.prospring4.ch3.xml.SimpleBean" p:name="Chris Schaefer" p:age="32"/>
 
-  <bean id="inheritChild" class="com.apress.prospring4.ch3.xml.SimpleBean" parent="inheritParent" p:age="33"/>
-  -->
+    <bean id="inheritChild" class="com.apress.prospring4.ch3.xml.SimpleBean" parent="inheritParent" p:age="33"/>
+    -->
 
-  <bean id="simpleBean1" class="com.apress.prospring4.ch4.SimpleBean" init-method="init" p:name="Chris Schaefer" p:age="32"/>
-  <bean id="simpleBean2" class="com.apress.prospring4.ch4.SimpleBean" init-method="init" p:age="32"/>
-  <bean id="simpleBean3" class="com.apress.prospring4.ch4.SimpleBean" init-method="init" p:name="Chris Schaefer"/>
+    <!--
+    Executing a Method When a Bean Is Created
+    <bean id="simpleBean1" class="com.apress.prospring4.ch4.SimpleBean" init-method="init" p:name="Chris Schaefer" p:age="32"/>
+    <bean id="simpleBean2" class="com.apress.prospring4.ch4.SimpleBean" init-method="init" p:age="32"/>
+    <bean id="simpleBean3" class="com.apress.prospring4.ch4.SimpleBean" init-method="init" p:name="Chris Schaefer"/>
+    -->
+
+    <bean id="simpleBean1" class="com.apress.prospring4.ch4.SimpleBeanWithInterface" p:name="Chris Schaefer" p:age="32"/>
+    <bean id="simpleBean2" class="com.apress.prospring4.ch4.SimpleBeanWithInterface" p:age="32"/>
+    <bean id="simpleBean3" class="com.apress.prospring4.ch4.SimpleBeanWithInterface" p:name="Chris Schaefer"/>
 </beans>
