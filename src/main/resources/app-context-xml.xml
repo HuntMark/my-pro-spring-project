@@ -205,6 +205,12 @@
     <bean id="simpleBean3" class="com.apress.prospring4.ch4.SimpleBeanWithJSR250" p:name="Chris Schaefer"/>
     -->
 
+    <!--
+    Executing a Method When a Bean Is Destroyed
     <bean id="destructiveBean" class="com.apress.prospring4.ch4.DestructiveBean" destroy-method="destroy"
             p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
+    -->
+
+    <bean id="destructiveBean" class="com.apress.prospring4.ch4.DestructiveBeanWithInterface"
+          p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
 </beans>
