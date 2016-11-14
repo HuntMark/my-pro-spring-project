@@ -211,6 +211,14 @@
             p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
     -->
 
+    <!--
+    Implementing the DisposableBean Interface
     <bean id="destructiveBean" class="com.apress.prospring4.ch4.DestructiveBeanWithInterface"
+          p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
+    -->
+
+    <context:annotation-config/>
+
+    <bean id="destructiveBean" class="com.apress.prospring4.ch4.DestructiveBeanWithJSR250"
           p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
 </beans>
