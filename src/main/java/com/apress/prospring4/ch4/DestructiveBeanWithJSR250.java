@@ -43,12 +43,15 @@ public class DestructiveBeanWithJSR250 {
     public static void main(String[] args) {
         GenericXmlApplicationContext context = new GenericXmlApplicationContext();
         context.load("classpath:app-context-xml.xml");
+        context.registerShutdownHook();
         context.refresh();
 
         DestructiveBeanWithJSR250 bean = (DestructiveBeanWithJSR250) context.getBean("destructiveBean");
 
+        /*
         System.out.println("Calling destroy()");
         context.destroy();
         System.out.println("Called destroy()");
+        */
     }
 }
