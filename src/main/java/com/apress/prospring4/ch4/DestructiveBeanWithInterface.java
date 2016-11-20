@@ -1,16 +1,16 @@
 package com.apress.prospring4.ch4;
 
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.File;
 
-public class DestructiveBeanWithInterface implements InitializingBean, DisposableBean {
+public class DestructiveBeanWithInterface {
     private File file;
     private String filePath;
 
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() throws Exception {
         System.out.println("Initializing Bean");
 
@@ -25,7 +25,7 @@ public class DestructiveBeanWithInterface implements InitializingBean, Disposabl
         System.out.println("File exists: " + this.file.exists());
     }
 
-    @Override
+    @PreDestroy
     public void destroy() throws Exception {
         System.out.println("Destroying Bean");
 
@@ -42,13 +42,9 @@ public class DestructiveBeanWithInterface implements InitializingBean, Disposabl
 
     public static void main(String[] args) {
         GenericXmlApplicationContext context = new GenericXmlApplicationContext();
-        context.load("classpath:app-context-xml.xml");
+        context.load("classpath:app-context-annotation.xml");
         context.refresh();
 
         DestructiveBeanWithInterface bean = (DestructiveBeanWithInterface) context.getBean("destructiveBean");
-
-        System.out.println("Calling destroy()");
-        context.destroy();
-        System.out.println("Called destroy()");
     }
 }

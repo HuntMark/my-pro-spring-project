@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:c="http://www.springframework.org/schema/c"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:context="http://www.springframework.org/schema/context"
@@ -10,30 +11,41 @@ http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd
 http://www.springframework.org/schema/util
 http://www.springframework.org/schema/util/spring-util.xsd">
-  <context:component-scan base-package="com.apress.prospring4.ch3.annotation">
-    <context:exclude-filter type="assignable" expression="com.apress.prospring4.ch3.xml.HelloWorldMessageProvider"/>
-    <context:exclude-filter type="assignable" expression="com.apress.prospring4.ch3.xml.ConfigurableMessageProvider"/>
-  </context:component-scan>
 
-  <bean id="message" class="java.lang.String" c:_0="Configurable message from xml (annotation)"/>
+    <!--
+    <context:component-scan base-package="com.apress.prospring4.ch3.annotation">
+        <context:exclude-filter type="assignable" expression="com.apress.prospring4.ch3.xml.HelloWorldMessageProvider"/>
+        <context:exclude-filter type="assignable"
+                                expression="com.apress.prospring4.ch3.xml.ConfigurableMessageProvider"/>
+    </context:component-scan>
 
-  <util:map id="map" map-class="java.util.HashMap">
-    <entry key="someValue" value="Hello World!"/>
-    <entry key="someBean" value-ref="oracle"/>
-  </util:map>
+    <bean id="message" class="java.lang.String" c:_0="Configurable message from xml (annotation)"/>
 
-  <util:properties id="props">
-    <prop key="firstName">Chris</prop>
-    <prop key="secondName">Schaefer</prop>
-  </util:properties>
+    <util:map id="map" map-class="java.util.HashMap">
+        <entry key="someValue" value="Hello World!"/>
+        <entry key="someBean" value-ref="oracle"/>
+    </util:map>
 
-  <util:set id="set">
-    <value>Hello World!</value>
-    <ref bean="oracle"/>
-  </util:set>
+    <util:properties id="props">
+        <prop key="firstName">Chris</prop>
+        <prop key="secondName">Schaefer</prop>
+    </util:properties>
 
-  <util:list id="list">
-    <value>Hello World!</value>
-    <ref bean="oracle"/>
-  </util:list>
+    <util:set id="set">
+        <value>Hello World!</value>
+        <ref bean="oracle"/>
+    </util:set>
+
+    <util:list id="list">
+        <value>Hello World!</value>
+        <ref bean="oracle"/>
+    </util:list>
+    -->
+
+    <context:annotation-config/>
+
+    <bean id="destructiveBean" class="com.apress.prospring4.ch4.DestructiveBeanWithInterface"
+          p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
+
+    <bean id="shutdownHook" class="com.apress.prospring4.ch4.ShutdownHookBean"/>
 </beans>

@@ -225,5 +225,8 @@
           p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
     -->
 
+    <!--
+    Using the BeanNameAware Interface
     <bean id="beanNamePrinter" class="com.apress.prospring4.ch4.BeanNamePrinter"/>
+    -->
 </beans>
