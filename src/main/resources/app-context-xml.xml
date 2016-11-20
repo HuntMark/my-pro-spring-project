@@ -217,8 +217,13 @@
           p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
     -->
 
+    <!--
+    Using a Shutdown Hook
     <context:annotation-config/>
 
     <bean id="destructiveBean" class="com.apress.prospring4.ch4.DestructiveBeanWithJSR250"
           p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
+    -->
+
+    <bean id="beanNamePrinter" class="com.apress.prospring4.ch4.BeanNamePrinter"/>
 </beans>
