@@ -230,9 +230,24 @@
     <bean id="beanNamePrinter" class="com.apress.prospring4.ch4.BeanNamePrinter"/>
     -->
 
+    <!--
+    FactoryBean Example: The MessageDigestFactoryBean
     <bean id="shaDigest" class="com.apress.prospring4.ch4.MessageDigestFactoryBean" p:algorithmName="SHA1"/>
 
     <bean id="defaultDigest" class="com.apress.prospring4.ch4.MessageDigestFactoryBean"/>
+
+    <bean id="digester" class="com.apress.prospring4.ch4.MessageDigester"
+          p:digest1-ref="shaDigest"
+          p:digest2-ref="defaultDigest"/>
+    -->
+
+    <bean id="shaDigestFactory" class="com.apress.prospring4.ch4.MessageDigestFactory" p:algorithmName="SHA1"/>
+
+    <bean id="defaultDigestFactory" class="com.apress.prospring4.ch4.MessageDigestFactory"/>
+
+    <bean id="shaDigest" factory-bean="shaDigestFactory" factory-method="createInstance"/>
+
+    <bean id="defaultDigest" factory-bean="defaultDigestFactory" factory-method="createInstance"/>
 
     <bean id="digester" class="com.apress.prospring4.ch4.MessageDigester"
           p:digest1-ref="shaDigest"
