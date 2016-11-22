@@ -229,4 +229,12 @@
     Using the BeanNameAware Interface
     <bean id="beanNamePrinter" class="com.apress.prospring4.ch4.BeanNamePrinter"/>
     -->
+
+    <bean id="shaDigest" class="com.apress.prospring4.ch4.MessageDigestFactoryBean" p:algorithmName="SHA1"/>
+
+    <bean id="defaultDigest" class="com.apress.prospring4.ch4.MessageDigestFactoryBean"/>
+
+    <bean id="digester" class="com.apress.prospring4.ch4.MessageDigester"
+          p:digest1-ref="shaDigest"
+          p:digest2-ref="defaultDigest"/>
 </beans>
