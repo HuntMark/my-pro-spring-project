@@ -290,6 +290,8 @@
     </util:list>
     -->
 
+    <!--
+    Creating a Custom PropertyEditor
     <bean name="customEditorConfigurer"
           class="org.springframework.beans.factory.config.CustomEditorConfigurer">
         <property name="customEditors">
@@ -300,4 +302,12 @@
     </bean>
 
     <bean id="exampleBean" class="com.apress.prospring4.ch4.CustomEditorExample" p:name="Chris Schaefer"/>
+    -->
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
+          p:basenames-ref="basenames"/>
+
+    <util:list id="basenames">
+        <value>labels</value>
+    </util:list>
 </beans>
