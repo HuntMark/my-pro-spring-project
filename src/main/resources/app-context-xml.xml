@@ -12,8 +12,7 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/util
-       http://www.springframework.org/schema/util/spring-util.xsd"
-       default-lazy-init="true">
+       http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!--
     Setter Injection via property tag
@@ -304,10 +303,21 @@
     <bean id="exampleBean" class="com.apress.prospring4.ch4.CustomEditorExample" p:name="Chris Schaefer"/>
     -->
 
+    <!--
+    Using ApplicationContext and MessageSource
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
           p:basenames-ref="basenames"/>
 
     <util:list id="basenames">
         <value>labels</value>
     </util:list>
+    -->
+
+    <bean id="publisher" class="com.apress.prospring4.ch4.Publisher"/>
+    <!--
+    Note: do not need special configuration to register MessageEventListener with ApplicationContext;
+    it is picked up automatically by Spring.
+    (But really it requires definition by hand :()
+    -->
+    <bean id="messageEventListener" class="com.apress.prospring4.ch4.MessageEventListener"/>
 </beans>
