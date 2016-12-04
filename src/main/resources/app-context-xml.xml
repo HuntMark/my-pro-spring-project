@@ -259,6 +259,8 @@
           p:digest2-ref="defaultDigest"/>
     -->
 
+    <!--
+    Using the Built-in PropertyEditors
     <bean id="customEditorConfigurer"
           class="org.springframework.beans.factory.config.CustomEditorConfigurer"
           p:propertyEditorRegistrars-ref="propertyEditorRegistrarsList"/>
@@ -286,4 +288,16 @@
         <value>String member 1</value>
         <value>String member 2</value>
     </util:list>
+    -->
+
+    <bean name="customEditorConfigurer"
+          class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="com.apress.prospring4.ch4.Name" value="com.apress.prospring4.ch4.NamePropertyEditor"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="exampleBean" class="com.apress.prospring4.ch4.CustomEditorExample" p:name="Chris Schaefer"/>
 </beans>
