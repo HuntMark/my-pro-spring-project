@@ -313,11 +313,20 @@
     </util:list>
     -->
 
-    <bean id="publisher" class="com.apress.prospring4.ch4.Publisher"/>
     <!--
+    Event Listener
+    <bean id="publisher" class="com.apress.prospring4.ch4.Publisher"/>
+    &lt;!&ndash;
     Note: do not need special configuration to register MessageEventListener with ApplicationContext;
     it is picked up automatically by Spring.
     (But really it requires definition by hand :()
-    -->
+    &ndash;&gt;
     <bean id="messageEventListener" class="com.apress.prospring4.ch4.MessageEventListener"/>
+    -->
+
+    <context:property-placeholder location="application.properties" local-override="true"/>
+
+    <bean id="appProperty" class="com.apress.prospring4.ch4.AppProperty"
+          p:applicationHome="${application.home}"
+          p:userHome="${user.home}"/>
 </beans>
