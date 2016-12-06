@@ -33,7 +33,7 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <!-- @Inject annotation -->
+        <!-- JSR-330 annotations -->
         <!-- https://mvnrepository.com/artifact/javax.inject/javax.inject -->
         <dependency>
             <groupId>javax.inject</groupId>

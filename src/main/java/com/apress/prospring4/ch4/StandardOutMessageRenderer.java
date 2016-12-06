@@ -1,6 +1,14 @@
 package com.apress.prospring4.ch4;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
+@Named("messageRenderer")
+@Singleton
 public class StandardOutMessageRenderer implements MessageRenderer {
+    @Inject
+    @Named("messageProvider")
     private MessageProvider messageProvider;
 
     @Override
