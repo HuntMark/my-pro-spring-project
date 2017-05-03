@@ -1,10 +1,10 @@
 -- Create table contacts
 CREATE TABLE contacts
 (
-  id         SERIAL                 NOT NULL,
-  first_name CHARACTER VARYING(255) NOT NULL,
-  last_name  CHARACTER VARYING(255) NOT NULL,
-  birth_date TIMESTAMP,
+  id         INT AUTO_INCREMENT NOT NULL,
+  first_name VARCHAR(255)       NOT NULL,
+  last_name  VARCHAR(255)       NOT NULL,
+  birth_date DATE,
 
   CONSTRAINT pk__contacts PRIMARY KEY (id),
 
@@ -20,10 +20,10 @@ COMMENT ON COLUMN contacts.birth_date IS 'Date of birth';
 -- Create table contacts_details
 CREATE TABLE contacts_details
 (
-  id           SERIAL                 NOT NULL,
-  contact_id   INT                    NOT NULL,
-  phone_type   CHARACTER VARYING(255) NOT NULL,
-  phone_number CHARACTER VARYING(255) NOT NULL,
+  id           INT AUTO_INCREMENT NOT NULL,
+  contact_id   INT                NOT NULL,
+  phone_type   VARCHAR(255)       NOT NULL,
+  phone_number VARCHAR(255)       NOT NULL,
 
   CONSTRAINT pk__contacts_details PRIMARY KEY (id),
 
