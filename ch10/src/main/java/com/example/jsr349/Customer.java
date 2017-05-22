@@ -3,6 +3,7 @@ package com.example.jsr349;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@CheckIndividualCustomer
 public class Customer {
 
     @NotNull
