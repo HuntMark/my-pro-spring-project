@@ -72,6 +72,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- AOP -->
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
