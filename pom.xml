@@ -16,6 +16,7 @@
         <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
         <spring.version>4.3.2.RELEASE</spring.version>
         <groovy.version>2.4.7</groovy.version>
+        <aspectj.version>1.8.11</aspectj.version>
     </properties>
 
     <dependencies>
@@ -77,6 +78,19 @@
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
             <version>1.0</version>
+        </dependency>
+
+        <!-- AspectJ EL-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
 
     </dependencies>
