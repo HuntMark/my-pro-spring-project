@@ -332,6 +332,8 @@
           p:userHome="${user.home}"/>
      -->
 
+    <!--
+    ProxyFactoryBean in Action
     <bean id="myBean1" class="com.apress.prospring4.ch5.MyBean">
         <property name="dep" ref="myDependency1"/>
     </bean>
@@ -370,4 +372,21 @@
             </bean>
         </property>
     </bean>
+    -->
+
+    <bean id="bean" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <bean class="com.apress.prospring4.ch5.TargetBean">
+                <property name="name" value="Chris Schaefer"/>
+            </bean>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>advisor</value>
+            </list>
+        </property>
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+
+    <bean id="advisor" class="com.apress.prospring4.ch5.IsModifiedAdvisor"/>
 </beans>
