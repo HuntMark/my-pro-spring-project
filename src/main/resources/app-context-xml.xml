@@ -396,7 +396,7 @@
     -->
 
     <aop:config>
-        <aop:pointcut id="fooExecution" expression="execution(* com.apress.prospring4.ch5..foo*(int))"/>
+        <aop:pointcut id="fooExecution" expression="execution(* foo*(int)) and args(intValue) and bean(myDependency*)"/>
 
         <aop:aspect ref="advice">
             <aop:before pointcut-ref="fooExecution" method="simpleBeforeAdvice"/>
