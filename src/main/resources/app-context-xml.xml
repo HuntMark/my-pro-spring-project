@@ -400,6 +400,7 @@
 
         <aop:aspect ref="advice">
             <aop:before pointcut-ref="fooExecution" method="simpleBeforeAdvice"/>
+            <aop:around pointcut-ref="fooExecution" method="simpleAroundAdvice"/>
         </aop:aspect>
     </aop:config>
 

@@ -1,6 +1,7 @@
 package com.apress.prospring4.ch5.aopnamespace;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 
 public class MyAdvice {
 
@@ -10,5 +11,17 @@ public class MyAdvice {
                     + " " + joinPoint.getSignature().getName()
                     + " argument: " + intValue);
         }
+    }
+
+    public Object simpleAroundAdvice(ProceedingJoinPoint pjp, int intValue) throws Throwable {
+        System.out.println("Before execution: "
+                + pjp.getSignature().getDeclaringTypeName()
+                + " " + pjp.getSignature().getName()
+                + " argument: " + intValue);
+        Object retVal = pjp.proceed();
+        System.out.println("After execution: "
+                + pjp.getSignature().getDeclaringTypeName() + " "
+                + pjp.getSignature().getName() + " argument: " + intValue);
+        return retVal;
     }
 }
