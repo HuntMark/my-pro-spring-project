@@ -5,6 +5,7 @@
        xmlns:c="http://www.springframework.org/schema/c"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tool
@@ -12,7 +13,8 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/util
-       http://www.springframework.org/schema/util/spring-util.xsd">
+       http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--
     Setter Injection via property tag
@@ -374,6 +376,8 @@
     </bean>
     -->
 
+    <!--
+    Using ProxyFactoryBean for Introductions
     <bean id="bean" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target">
             <bean class="com.apress.prospring4.ch5.TargetBean">
@@ -389,4 +393,21 @@
     </bean>
 
     <bean id="advisor" class="com.apress.prospring4.ch5.IsModifiedAdvisor"/>
+    -->
+
+    <aop:config>
+        <aop:pointcut id="fooExecution" expression="execution(* com.apress.prospring4.ch5..foo*(int))"/>
+
+        <aop:aspect ref="advice">
+            <aop:before pointcut-ref="fooExecution" method="simpleBeforeAdvice"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="advice" class="com.apress.prospring4.ch5.aopnamespace.MyAdvice"/>
+
+    <bean id="myDependency" class="com.apress.prospring4.ch5.aopnamespace.MyDependency"/>
+
+    <bean id="myBean" class="com.apress.prospring4.ch5.aopnamespace.MyBean">
+        <property name="dep" ref="myDependency"/>
+    </bean>
 </beans>
