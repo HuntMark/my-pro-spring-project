@@ -3,13 +3,18 @@ package com.apress.prospring4.ch6;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JdbcContactDao implements ContactDao, InitializingBean {
+
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public List<Contact> findAll() {
@@ -23,7 +28,12 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
 
     @Override
     public String findLastNameById(Long id) {
-        return null;
+        String sql = "SELECT last_name FROM contact WHERE id = :contactId";
+
+        Map<String, Object> namedParameters = new HashMap<>();
+        namedParameters.put("contactId", id);
+
+        return namedParameterJdbcTemplate.queryForObject(sql, namedParameters, String.class);
     }
 
     @Override
@@ -46,13 +56,16 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+
+        MySQLErrorCodesTranslator errorTranslator = new MySQLErrorCodesTranslator();
+        errorTranslator.setDataSource(dataSource);
+
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
-        MySQLErrorCodesTranslator errorTranslator =
-                new MySQLErrorCodesTranslator();
-        errorTranslator.setDataSource(dataSource);
         jdbcTemplate.setExceptionTranslator(errorTranslator);
+
         this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(this.jdbcTemplate);
     }
 
     @Override
