@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,18 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
 
     @Override
     public List<Contact> findAll() {
-        return null;
+        final String sql = "SELECT id, first_name, last_name, birth_date FROM contact";
+        return namedParameterJdbcTemplate.query(sql,
+                (ResultSet rs, int rowNum) -> {
+                    Contact contact = new Contact();
+
+                    contact.setId(rs.getLong("id"));
+                    contact.setFirstName(rs.getString("first_name"));
+                    contact.setLastName(rs.getString("last_name"));
+                    contact.setBirthDate(rs.getDate("birth_date"));
+
+                    return contact;
+                });
     }
 
     @Override
