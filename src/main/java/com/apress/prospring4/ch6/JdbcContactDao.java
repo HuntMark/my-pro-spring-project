@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,40 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
                     contact.setBirthDate(rs.getDate("birth_date"));
 
                     return contact;
+                });
+    }
+
+    @Override
+    public List<Contact> findAllWithDetail() {
+        final String sql = "SELECT c.id, c.first_name, c.last_name, c.birth_date," +
+                " t.id AS contact_tel_id, t.tel_type, t.tel_number" +
+                " FROM contact c  LEFT JOIN contact_tel_detail t ON c.id = t.contact_id";
+        return namedParameterJdbcTemplate.query(sql,
+                (ResultSet rs) -> {
+                    Map<Long, Contact> map = new HashMap<>();
+                    while (rs.next()) {
+                        Long id = rs.getLong("id");
+                        Contact contact = map.get(id);
+                        if (contact == null) {
+                            contact = new Contact();
+                            contact.setId(id);
+                            contact.setFirstName(rs.getString("first_name"));
+                            contact.setLastName(rs.getString("last_name"));
+                            contact.setBirthDate(rs.getDate("birth_date"));
+                            contact.setContactTelDetails(new ArrayList<ContactTelDetail>());
+                            map.put(id, contact);
+                        }
+                        Long contactTelDetailId = rs.getLong("contact_tel_id");
+                        if (contactTelDetailId > 0) {
+                            ContactTelDetail contactTelDetail = new ContactTelDetail();
+                            contactTelDetail.setId(contactTelDetailId);
+                            contactTelDetail.setContactId(id);
+                            contactTelDetail.setTelType(rs.getString("tel_type"));
+                            contactTelDetail.setTelNumber(rs.getString("tel_number"));
+                            contact.getContactTelDetails().add(contactTelDetail);
+                        }
+                    }
+                    return new ArrayList<>(map.values());
                 });
     }
 

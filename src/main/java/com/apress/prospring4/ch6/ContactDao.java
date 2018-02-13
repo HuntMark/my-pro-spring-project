@@ -6,6 +6,8 @@ public interface ContactDao {
 
     List<Contact> findAll();
 
+    List<Contact> findAllWithDetail();
+
     List<Contact> findByFirstName(String firstName);
 
     String findLastNameById(Long id);
