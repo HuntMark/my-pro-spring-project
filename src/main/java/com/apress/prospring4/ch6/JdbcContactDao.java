@@ -24,10 +24,12 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private SelectAllContacts selectAllContacts;
+    private SelectContactByFirstName selectContactByFirstName;
 
     @Override
     public List<Contact> findAll() {
-        final String sql = "SELECT id, first_name, last_name, birth_date FROM contact";
+        /*final String sql = "SELECT id, first_name, last_name, birth_date FROM contact";
         return namedParameterJdbcTemplate.query(sql,
                 (ResultSet rs, int rowNum) -> {
                     Contact contact = new Contact();
@@ -38,7 +40,8 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
                     contact.setBirthDate(rs.getDate("birth_date"));
 
                     return contact;
-                });
+                });*/
+        return selectAllContacts.execute();
     }
 
     @Override
@@ -77,7 +80,9 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
 
     @Override
     public List<Contact> findByFirstName(String firstName) {
-        return null;
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("first_name", firstName);
+        return selectContactByFirstName.executeByNamedParam(paramMap);
     }
 
     @Override
@@ -125,6 +130,8 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
 
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(this.jdbcTemplate);
+        this.selectAllContacts = new SelectAllContacts(this.dataSource);
+        this.selectContactByFirstName = new SelectContactByFirstName(this.dataSource);
     }
 
     @Override

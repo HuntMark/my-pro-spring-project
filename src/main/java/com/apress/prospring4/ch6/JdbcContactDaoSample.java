@@ -12,5 +12,6 @@ public class JdbcContactDaoSample {
         System.out.println("Last name for contact id 1 is: " + contactDao.findLastNameById(1L));
         System.out.println("All contacts: " + contactDao.findAll());
         System.out.println("All contacts with detail: " + contactDao.findAllWithDetail());
+        System.out.println("Contact by first name: " + contactDao.findByFirstName("Chris"));
     }
 }
