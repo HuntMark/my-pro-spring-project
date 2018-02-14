@@ -26,6 +26,7 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private SelectAllContacts selectAllContacts;
     private SelectContactByFirstName selectContactByFirstName;
+    private UpdateContact updateContact;
 
     @Override
     public List<Contact> findAll() {
@@ -111,6 +112,16 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
 
     @Override
     public void update(Contact contact) {
+        Map<String, Object> paramMap = new HashMap<>();
+
+        paramMap.put("first_name", contact.getFirstName());
+        paramMap.put("last_name", contact.getLastName());
+        paramMap.put("birth_date", contact.getBirthDate());
+        paramMap.put("id", contact.getId());
+
+        updateContact.updateByNamedParam(paramMap);
+
+        log.info("Existing contact updated with id: " + contact.getId());
     }
 
     @Override
@@ -132,6 +143,7 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(this.jdbcTemplate);
         this.selectAllContacts = new SelectAllContacts(this.dataSource);
         this.selectContactByFirstName = new SelectContactByFirstName(this.dataSource);
+        this.updateContact = new UpdateContact(this.dataSource);
     }
 
     @Override
