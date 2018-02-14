@@ -1,10 +1,14 @@
 package com.apress.prospring4.ch6;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -12,7 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository("contactDao")
 public class JdbcContactDao implements ContactDao, InitializingBean {
+
+    private Log log = LogFactory.getLog(JdbcContactDao.class);
 
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
@@ -94,6 +101,10 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
     }
 
     @Override
+    public void insertWithDetail(Contact contact) {
+    }
+
+    @Override
     public void update(Contact contact) {
     }
 
@@ -101,6 +112,7 @@ public class JdbcContactDao implements ContactDao, InitializingBean {
     public void delete(Long contactId) {
     }
 
+    @Resource(name = "dataSource")
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
 

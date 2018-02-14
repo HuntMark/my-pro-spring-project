@@ -16,6 +16,8 @@ public interface ContactDao {
 
     void insert(Contact contact);
 
+    void insertWithDetail(Contact contact);
+
     void update(Contact contact);
 
     void delete(Long contactId);
