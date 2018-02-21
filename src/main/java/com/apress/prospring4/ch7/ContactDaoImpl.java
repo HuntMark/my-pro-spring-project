@@ -18,18 +18,13 @@ public class ContactDaoImpl implements ContactDao {
 
     private SessionFactory sessionFactory;
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    @Resource(name = "sessionFactory")
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Override
+    @Transactional(readOnly = true)
     public List<Contact> findAll() {
-        return null;
+        return this.sessionFactory
+                .getCurrentSession()
+                .createQuery("from Contact c")
+                .list();
     }
 
     @Override
@@ -50,5 +45,14 @@ public class ContactDaoImpl implements ContactDao {
     @Override
     public void delete(Contact contact) {
 
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    @Resource(name = "sessionFactory")
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }
