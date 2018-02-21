@@ -28,13 +28,22 @@ public class ContactDaoImpl implements ContactDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Contact> findAllWithDetail() {
-        return null;
+        return this.sessionFactory
+                .getCurrentSession()
+                .getNamedQuery("Contact.findAllWithDetail")
+                .list();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Contact findById(Long id) {
-        return null;
+        return (Contact) this.sessionFactory
+                .getCurrentSession()
+                .getNamedQuery("Contact.findById")
+                .setParameter("id", id)
+                .uniqueResult();
     }
 
     @Override

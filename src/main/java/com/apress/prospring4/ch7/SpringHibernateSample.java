@@ -13,7 +13,12 @@ public class SpringHibernateSample {
 
         ContactDao contactDao = context.getBean("contactDao", ContactDao.class);
 
-        listContactsWithDetails(contactDao.findAll());
+        listContactsWithDetails(contactDao.findAllWithDetail());
+
+        Contact contact = contactDao.findById(1L);
+        System.out.println("");
+        System.out.println("Contact with id 1:" + contact);
+        System.out.println("");
     }
 
     private static void listContactsWithDetails(List<Contact> contacts) {
