@@ -2,8 +2,6 @@ package com.apress.prospring4.ch7;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-import com.apress.prospring4.ch6.Contact;
-import com.apress.prospring4.ch6.ContactDao;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
@@ -40,37 +38,17 @@ public class ContactDaoImpl implements ContactDao {
     }
 
     @Override
-    public List<Contact> findByFirstName(String firstName) {
+    public Contact findById(Long id) {
         return null;
     }
 
     @Override
-    public String findLastNameById(Long id) {
+    public Contact save(Contact contact) {
         return null;
     }
 
     @Override
-    public String findFirstNameById(Long id) {
-        return null;
-    }
-
-    @Override
-    public void insert(Contact contact) {
-
-    }
-
-    @Override
-    public void insertWithDetail(Contact contact) {
-
-    }
-
-    @Override
-    public void update(Contact contact) {
-
-    }
-
-    @Override
-    public void delete(Long contactId) {
+    public void delete(Contact contact) {
 
     }
 }
