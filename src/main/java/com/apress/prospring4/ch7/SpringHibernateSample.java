@@ -3,7 +3,6 @@ package com.apress.prospring4.ch7;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.List;
-import java.util.Set;
 
 public class SpringHibernateSample {
 
@@ -15,16 +14,7 @@ public class SpringHibernateSample {
         ContactDao contactDao = context.getBean("contactDao", ContactDao.class);
 
         Contact contact = contactDao.findById(1L);
-        contact.setFirstName("Kim Fung");
-        Set<ContactTelDetail> contactTels = contact.getContactTelDetails();
-        ContactTelDetail toDeleteContactTel = null;
-        for (ContactTelDetail contactTel : contactTels) {
-            if (contactTel.getTelType().equals("Home")) {
-                toDeleteContactTel = contactTel;
-            }
-        }
-        contact.removeContactTelDetail(toDeleteContactTel);
-        contactDao.save(contact);
+        contactDao.delete(contact);
         listContactsWithDetails(contactDao.findAllWithDetail());
     }
 

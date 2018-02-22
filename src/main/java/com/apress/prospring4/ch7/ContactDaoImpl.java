@@ -55,7 +55,8 @@ public class ContactDaoImpl implements ContactDao {
 
     @Override
     public void delete(Contact contact) {
-
+        this.sessionFactory.getCurrentSession().delete(contact);
+        log.info("Contact deleted with id: " + contact.getId());
     }
 
     public SessionFactory getSessionFactory() {
