@@ -48,7 +48,9 @@ public class ContactDaoImpl implements ContactDao {
 
     @Override
     public Contact save(Contact contact) {
-        return null;
+        this.sessionFactory.getCurrentSession().saveOrUpdate(contact);
+        log.info("Contact saved with id:" + contact.getId());
+        return contact;
     }
 
     @Override
