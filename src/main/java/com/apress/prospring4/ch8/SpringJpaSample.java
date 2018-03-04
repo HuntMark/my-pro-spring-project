@@ -2,7 +2,6 @@ package com.apress.prospring4.ch8;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
-import java.util.Collections;
 import java.util.List;
 
 public class SpringJpaSample {
@@ -11,9 +10,8 @@ public class SpringJpaSample {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:app-context-jpa.xml");
         ctx.refresh();
-        ContactService contactService = ctx.getBean("jpaContactService", ContactService.class);
-        List<Contact> contacts = Collections.singletonList(contactService.findById(1L));
-        listContactsWithDetail(contacts);
+        ContactSummaryUntypeImpl contactSummaryUntype = ctx.getBean("contactSummaryUntype", ContactSummaryUntypeImpl.class);
+        contactSummaryUntype.displayAllContactSummary();
     }
 
     private static void listContacts(List<Contact> contacts) {
