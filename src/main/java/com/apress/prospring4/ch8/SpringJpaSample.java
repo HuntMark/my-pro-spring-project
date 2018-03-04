@@ -2,6 +2,7 @@ package com.apress.prospring4.ch8;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import java.util.Date;
 import java.util.List;
 
 public class SpringJpaSample {
@@ -10,11 +11,18 @@ public class SpringJpaSample {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:app-context-jpa.xml");
         ctx.refresh();
-        ContactSummaryService contactSummaryService = ctx.getBean("contactSummaryService", ContactSummaryService.class);
-        List<ContactSummary> contacts = contactSummaryService.findAll();
-        for (ContactSummary contactSummary : contacts) {
-            System.out.println(contactSummary);
-        }
+
+        ContactService contactService = ctx.getBean("jpaContactService", ContactService.class);
+        Contact contact = new Contact();
+        contact.setFirstName("Michael");
+        contact.setLastName("Jackson");
+        contact.setBirthDate(new Date());
+        ContactTelDetail contactTelDetail = new ContactTelDetail("Home", "1111111111");
+        contact.addContactTelDetail(contactTelDetail);
+        contactTelDetail = new ContactTelDetail("Mobile", "2222222222");
+        contact.addContactTelDetail(contactTelDetail);
+        contactService.save(contact);
+        listContactsWithDetail(contactService.findAllWithDetail());
     }
 
     private static void listContacts(List<Contact> contacts) {
