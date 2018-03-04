@@ -10,8 +10,11 @@ public class SpringJpaSample {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:app-context-jpa.xml");
         ctx.refresh();
-        ContactSummaryUntypeImpl contactSummaryUntype = ctx.getBean("contactSummaryUntype", ContactSummaryUntypeImpl.class);
-        contactSummaryUntype.displayAllContactSummary();
+        ContactSummaryService contactSummaryService = ctx.getBean("contactSummaryService", ContactSummaryService.class);
+        List<ContactSummary> contacts = contactSummaryService.findAll();
+        for (ContactSummary contactSummary : contacts) {
+            System.out.println(contactSummary);
+        }
     }
 
     private static void listContacts(List<Contact> contacts) {
