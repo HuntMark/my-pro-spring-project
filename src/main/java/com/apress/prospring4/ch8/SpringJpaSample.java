@@ -2,8 +2,8 @@ package com.apress.prospring4.ch8;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class SpringJpaSample {
 
@@ -12,15 +12,21 @@ public class SpringJpaSample {
         ctx.load("classpath:app-context-jpa.xml");
         ctx.refresh();
 
-        ContactService contactService = ctx.getBean("jpaContactService", ContactService.class);
-        Contact contact = new Contact();
-        contact.setFirstName("Michael");
-        contact.setLastName("Jackson");
-        contact.setBirthDate(new Date());
-        ContactTelDetail contactTelDetail = new ContactTelDetail("Home", "1111111111");
-        contact.addContactTelDetail(contactTelDetail);
-        contactTelDetail = new ContactTelDetail("Mobile", "2222222222");
-        contact.addContactTelDetail(contactTelDetail);
+        ContactService contactService = ctx.getBean(
+                "jpaContactService", ContactService.class);
+        Contact contact = contactService.findById(1L);
+        System.out.println("");
+        System.out.println("Contact with id 1:" + contact);
+        System.out.println("");
+        contact.setFirstName("Justin");
+        Set<ContactTelDetail> contactTels = contact.getContactTelDetails();
+        ContactTelDetail toDeleteContactTel = null;
+        for (ContactTelDetail contactTel : contactTels) {
+            if (contactTel.getTelType().equals("Home")) {
+                toDeleteContactTel = contactTel;
+            }
+        }
+        contactTels.remove(toDeleteContactTel);
         contactService.save(contact);
         listContactsWithDetail(contactService.findAllWithDetail());
     }
