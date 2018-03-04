@@ -3,7 +3,6 @@ package com.apress.prospring4.ch8;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.List;
-import java.util.Set;
 
 public class SpringJpaSample {
 
@@ -12,22 +11,9 @@ public class SpringJpaSample {
         ctx.load("classpath:app-context-jpa.xml");
         ctx.refresh();
 
-        ContactService contactService = ctx.getBean(
-                "jpaContactService", ContactService.class);
+        ContactService contactService = ctx.getBean("jpaContactService", ContactService.class);
         Contact contact = contactService.findById(1L);
-        System.out.println("");
-        System.out.println("Contact with id 1:" + contact);
-        System.out.println("");
-        contact.setFirstName("Justin");
-        Set<ContactTelDetail> contactTels = contact.getContactTelDetails();
-        ContactTelDetail toDeleteContactTel = null;
-        for (ContactTelDetail contactTel : contactTels) {
-            if (contactTel.getTelType().equals("Home")) {
-                toDeleteContactTel = contactTel;
-            }
-        }
-        contactTels.remove(toDeleteContactTel);
-        contactService.save(contact);
+        contactService.delete(contact);
         listContactsWithDetail(contactService.findAllWithDetail());
     }
 
