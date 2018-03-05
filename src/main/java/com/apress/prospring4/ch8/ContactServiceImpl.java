@@ -66,10 +66,10 @@ public class ContactServiceImpl implements ContactService {
         log.info("Contact with id: " + contact.getId() + " deleted successfully");
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public List<Contact> findAllByNativeQuery() {
         return em.createNativeQuery(ALL_CONTACT_NATIVE_QUERY,
-                Contact.class).getResultList();
+                "contactResult").getResultList();
     }
 }
