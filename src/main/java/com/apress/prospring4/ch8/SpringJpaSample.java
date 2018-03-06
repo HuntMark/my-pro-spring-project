@@ -2,6 +2,7 @@ package com.apress.prospring4.ch8;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import java.util.Date;
 import java.util.List;
 
 public class SpringJpaSample {
@@ -9,18 +10,33 @@ public class SpringJpaSample {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:app-context-jpa.xml");
         ctx.refresh();
-        ContactService contactService = ctx.getBean(
-                "springJpaContactService", ContactService.class);
-        listContacts("Find all:", contactService.findAll());
-        listContacts("Find by first name:", contactService.findByFirstName("Chris"));
-        listContacts("Find by first and last name:",
-                contactService.findByFirstNameAndLastName("Chris", "Schaefer"));
+
+        ContactAuditService contactService = ctx.getBean("contactAuditService", ContactAuditService.class);
+        List<ContactAudit> contacts = contactService.findAll();
+        listContacts(contacts);
+        System.out.println("Add new contact");
+        ContactAudit contact = new ContactAudit();
+        contact.setFirstName("Michael");
+        contact.setLastName("Jackson");
+        contact.setBirthDate(new Date());
+        contactService.save(contact);
+        contacts = contactService.findAll();
+        listContacts(contacts);
+        contact = contactService.findById(1L);
+        System.out.println("");
+        System.out.println("Contact with id 1:" + contact);
+        System.out.println("");
+        System.out.println("Update contact");
+        contact.setFirstName("Tom");
+        contactService.save(contact);
+        contacts = contactService.findAll();
+        listContacts(contacts);
     }
 
-    private static void listContacts(String message, List<Contact> contacts) {
+    private static void listContacts(List<ContactAudit> contacts) {
         System.out.println("");
-        System.out.println(message);
-        for (Contact contact : contacts) {
+        System.out.println("Listing contacts without details:");
+        for (ContactAudit contact : contacts) {
             System.out.println(contact);
             System.out.println();
         }
