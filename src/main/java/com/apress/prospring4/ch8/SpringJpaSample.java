@@ -12,9 +12,8 @@ public class SpringJpaSample {
         ctx.refresh();
 
         ContactService contactService = ctx.getBean("jpaContactService", ContactService.class);
-        Contact contact = contactService.findById(1L);
-        contactService.delete(contact);
-        listContacts(contactService.findAllByNativeQuery());
+        List<Contact> contacts = contactService.findByCriteriaQuery("John", "Smith");
+        listContactsWithDetail(contacts);
     }
 
     private static void listContacts(List<Contact> contacts) {

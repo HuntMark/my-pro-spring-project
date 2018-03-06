@@ -81,6 +81,13 @@
             <version>1.0.2.Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>5.2.13.Final</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- JSR-330 annotations -->
         <dependency>
             <groupId>javax.inject</groupId>

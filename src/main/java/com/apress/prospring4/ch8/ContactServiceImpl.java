@@ -9,6 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Service("jpaContactService")
@@ -71,5 +76,28 @@ public class ContactServiceImpl implements ContactService {
     public List<Contact> findAllByNativeQuery() {
         return em.createNativeQuery(ALL_CONTACT_NATIVE_QUERY,
                 "contactResult").getResultList();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Contact> findByCriteriaQuery(String firstName, String lastName) {
+        log.info("Finding contact for firstName: " + firstName + " and lastName: " + lastName);
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Contact> criteriaQuery = cb.createQuery(Contact.class);
+        Root<Contact> contactRoot = criteriaQuery.from(Contact.class);
+        contactRoot.fetch(Contact_.contactTelDetails, JoinType.LEFT);
+        contactRoot.fetch(Contact_.hobbies, JoinType.LEFT);
+        criteriaQuery.select(contactRoot).distinct(true);
+        Predicate criteria = cb.conjunction();
+        if (firstName != null) {
+            Predicate p = cb.equal(contactRoot.get(Contact_.firstName), firstName);
+            criteria = cb.and(criteria, p);
+        }
+        if (lastName != null) {
+            Predicate p = cb.equal(contactRoot.get(Contact_.lastName), lastName);
+            criteria = cb.and(criteria, p);
+        }
+        criteriaQuery.where(criteria);
+        return em.createQuery(criteriaQuery).getResultList();
     }
 }
