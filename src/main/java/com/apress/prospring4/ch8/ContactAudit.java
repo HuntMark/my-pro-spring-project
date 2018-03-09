@@ -3,6 +3,7 @@ package com.apress.prospring4.ch8;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.envers.Audited;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Auditable;
 
@@ -19,6 +20,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@Audited
 @Table(name = "contact_audit")
 public class ContactAudit implements Auditable<String, Long>, Serializable {
 
