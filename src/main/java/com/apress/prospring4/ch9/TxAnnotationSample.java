@@ -7,10 +7,10 @@ import java.util.List;
 public class TxAnnotationSample {
     public static void main(String[] args) {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:app-context-transaction.xml");
+        ctx.load("classpath:app-context-tx-xml-style.xml");
         ctx.refresh();
 
-        ContactService contactService = ctx.getBean("contactService", ContactService.class);
+        ContactServiceTxViaXml contactService = ctx.getBean("contactServiceTxViaXml", ContactServiceTxViaXml.class);
         List<Contact> contacts = contactService.findAll();
         for (Contact contactTemp : contacts) {
             System.out.println(contactTemp);
