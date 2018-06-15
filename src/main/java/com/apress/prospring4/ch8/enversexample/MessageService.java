@@ -28,21 +28,21 @@ public class MessageService {
     }
 
     @Transactional(readOnly = true)
-    public List<Message> findAll() {
+    public List<AbstractMessage> findAll() {
         return Lists.newArrayList(repository.findAll());
     }
 
-    public Message findById(Long id) {
+    public AbstractMessage findById(Long id) {
         return repository.findOne(id);
     }
 
-    public Message save(Message contact) {
+    public AbstractMessage save(AbstractMessage contact) {
         return repository.save(contact);
     }
 
     @Transactional(readOnly = true)
-    public Message findAuditByRevision(Long id, int revision) {
+    public AbstractMessage findAuditByRevision(Long id, int revision) {
         AuditReader auditReader = AuditReaderFactory.get(this.entityManager);
-        return auditReader.find(Message.class, id, revision);
+        return auditReader.find(AbstractMessage.class, id, revision);
     }
 }

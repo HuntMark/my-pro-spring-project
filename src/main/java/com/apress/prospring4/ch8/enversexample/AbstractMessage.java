@@ -3,6 +3,7 @@ package com.apress.prospring4.ch8.enversexample;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Auditable;
@@ -12,14 +13,16 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import java.io.Serializable;
 
-@Entity
+@Entity(name = "message")
 @Audited
 @DiscriminatorColumn(name = "direction")
-public abstract class Message implements Auditable<String, Long>, Serializable {
+@AuditTable(value="message_h")
+public abstract class AbstractMessage implements Auditable<String, Long>, Serializable {
 
     private Long id;
     private int version;
@@ -32,10 +35,10 @@ public abstract class Message implements Auditable<String, Long>, Serializable {
     @Column(insertable = false, updatable = false)
     private String direction;
 
-    public Message() {
+    public AbstractMessage() {
     }
 
-    public Message(String text) {
+    public AbstractMessage(String text) {
         this.text = text;
     }
 
@@ -114,15 +117,9 @@ public abstract class Message implements Auditable<String, Long>, Serializable {
 
     @Override
     public String toString() {
-        return "Message{" +
-                "id=" + id +
-                ", version=" + version +
-                ", text='" + text + '\'' +
-                ", createdBy='" + createdBy + '\'' +
-                ", createdDate=" + createdDate +
-                ", lastModifiedBy='" + lastModifiedBy + '\'' +
-                ", lastModifiedDate=" + lastModifiedDate +
-                ", direction='" + direction + '\'' +
-                '}';
+        return "Message {id = '" + this.id + "',"
+                + " text = '" + this.text + "',"
+                + " createdDate = '" + this.createdDate + "',"
+                + " modifiedDate = '" + this.lastModifiedDate + "'}";
     }
 }

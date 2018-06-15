@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 @Entity
 @Audited
 @DiscriminatorValue("TO")
-public class MessageTo extends Message {
+public class MessageTo extends AbstractMessage {
     @Override
     public String toString() {
         return super.toString();

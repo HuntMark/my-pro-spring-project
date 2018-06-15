@@ -1,38 +1,107 @@
 package com.apress.prospring4.ch8.enversexample;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import javax.sql.DataSource;
+import java.util.List;
+import java.util.Map;
 
 public class EnversExample {
-    public static void main(String[] args) {
+
+    private static final Logger log = LoggerFactory.getLogger(EnversExample.class);
+
+    public static void main(String[] args) throws InterruptedException {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:app-context-envers-example.xml");
         ctx.refresh();
 
         MessageService service = ctx.getBean("messageService", MessageService.class);
 
-        System.out.println("-----------------");
+        log.info("==============================");
 
-        Message message = new MessageFrom();
-        message.setText("Some message FROM!");
-        message = service.save(message);
+        Long messageFromId = createMessageFrom(service);
 
-        System.out.println("----- List -----");
-        service.findAll()
-                .forEach(System.out::println);
+        log.info("Created messageFrom: {}", service.findById(messageFromId));
 
-        message = service.findAuditByRevision(message.getId(), 1);
-        System.out.println("History: " + message);
+        Thread.sleep(100L);
 
-        message = new MessageTo();
-        message.setText("Some message TO!");
-        message = service.save(message);
+        updateMessageFrom1(service, messageFromId);
 
+        log.info("Updated messageFrom 1: {}", service.findById(messageFromId));
 
-        System.out.println("----- List -----");
-        service.findAll()
-                .forEach(System.out::println);
+        Thread.sleep(100L);
 
-        message = service.findAuditByRevision(message.getId(), 2);
-        System.out.println("History: " + message);
+        updateMessageFrom2(service, messageFromId);
+
+        log.info("Updated messageFrom 2: {}", service.findById(messageFromId));
+
+        log.info("==============================");
+
+        Long messageToId = createMessageTo(service);
+
+        log.info("Created messageTo: {}", service.findById(messageToId));
+
+        Thread.sleep(100L);
+
+        updateMessageTo1(service, messageToId);
+
+        log.info("Updated messageTo 1: {}", service.findById(messageToId));
+
+        Thread.sleep(100L);
+
+        updateMessageTo2(service, messageToId);
+
+        log.info("Updated messageTo 2: {}", service.findById(messageToId));
+
+        log.info("==============================");
+
+        DataSource dataSource = ctx.getBean("dataSource", DataSource.class);
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+        List<Map<String, Object>> messagesHistory = jdbcTemplate.queryForList("select * from message_h order by id, audit_revision");
+        messagesHistory
+                .forEach(messageHistory -> log.info(messageHistory.toString()));
+    }
+
+    private static Long createMessageFrom(MessageService service) {
+        AbstractMessage message = new MessageFrom();
+        message.setText("MessageFrom created!");
+        service.save(message);
+        return message.getId();
+    }
+
+    private static void updateMessageFrom1(MessageService service, Long messageId) {
+        AbstractMessage message = service.findById(messageId);
+        message.setText("MessageFrom updated 1!");
+        service.save(message);
+    }
+
+    private static void updateMessageFrom2(MessageService service, Long messageId) {
+        AbstractMessage message = service.findById(messageId);
+        message.setText("MessageFrom updated 2!");
+        service.save(message);
+    }
+
+    private static Long createMessageTo(MessageService service) {
+        AbstractMessage message = new MessageTo();
+        message.setText("MessageTo created!");
+        service.save(message);
+        return message.getId();
+    }
+
+    private static void updateMessageTo1(MessageService service, Long messageId) {
+        AbstractMessage message = service.findById(messageId);
+        message.setText("MessageTo updated 1!");
+        service.save(message);
+    }
+
+    private static void updateMessageTo2(MessageService service, Long messageId) {
+        AbstractMessage message = service.findById(messageId);
+        message.setText("MessageTo updated 2!");
+        service.save(message);
     }
 }
