@@ -10,18 +10,18 @@ import org.springframework.data.domain.Auditable;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import java.io.Serializable;
 
 @Entity(name = "message")
 @Audited
-@DiscriminatorColumn(name = "direction")
-@AuditTable(value="message_h")
+@DiscriminatorColumn(name = "to_bank", discriminatorType = DiscriminatorType.INTEGER)
+@AuditTable(value = "message_h")
 public abstract class AbstractMessage implements Auditable<String, Long>, Serializable {
 
     private Long id;
@@ -33,7 +33,7 @@ public abstract class AbstractMessage implements Auditable<String, Long>, Serial
     private DateTime lastModifiedDate;
 
     @Column(insertable = false, updatable = false)
-    private String direction;
+    private int toBank;
 
     public AbstractMessage() {
     }
@@ -113,6 +113,11 @@ public abstract class AbstractMessage implements Auditable<String, Long>, Serial
     @Transient
     public boolean isNew() {
         return id == null;
+    }
+
+    @Transient
+    public boolean isToBank() {
+        return this.toBank == 1;
     }
 
     @Override

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 @Entity
 @Audited
-@DiscriminatorValue("FROM")
+@DiscriminatorValue("0")
 public class MessageFrom extends AbstractMessage {
     @Override
     public String toString() {
